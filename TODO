@@ -1,3 +1,5 @@
 Pair all pacman commands to their XBPS equals
 
 add remove support
+Make the installed version work
+
