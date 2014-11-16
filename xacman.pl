@@ -47,7 +47,7 @@ my $cmd = #which term to search/remove/install
 	elsif(not $cmd and $action eq '-Ss'){
 		return '"" ';
 	}
-	elsif(not $cmd and $action eq '-Sy'){
+	elsif(not $cmd and $action eq '-Sy', '--refresh'){
 	  return $cmd;
 	}
 	elsif(not $cmd and $action eq '-S', '--sync'){
