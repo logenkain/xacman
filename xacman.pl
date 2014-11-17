@@ -22,7 +22,7 @@ print STDERR (" -S, --sync		Install [PACKAGE NAME]\n");
 print STDERR ("Sync Options:\n");
 print STDERR ("  s, --search   	Search for packages\n");
 print STDERR ("  y, --refresh		Refresh package list\n");  
-
+print STDERR ("  u, --upgrade   Update [PACKAGE NAME]\n");
 
 
 }
@@ -60,10 +60,14 @@ given ($action) { 		#Try to keep all xbps commands grouped together
 											#Such as when('-s' || '--sync')
 	when ('-S') 				{$action = "$xbI";} 
 	when ('--sync') 		{$action = "$xbI";}
+  
+	when ('-Su')				{$action = "$xbI -u";}
+  when ('-Syu')				{$action = "$xbI -Su";}
+  when ('--upgrade')  {$action = "$xbI -u";}
 
 	when ('-Sy')				{$action = "$xbI -S";}
 	when ('--refresh')	{$action = "$xbI -S";}
-
+	
 	when ('-Ss')				{$action = "$xbQ -Rs";} 
 	when ('--search')		{$action = "$xbQ -Rs";} 
 

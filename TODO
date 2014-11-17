@@ -6,6 +6,3 @@ Remove orphans
 
 Force refresh -Syy
 list installed packages
-
-sync upgrade option -Su
-
