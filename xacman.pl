@@ -32,7 +32,7 @@ my $xbQ = 'xbps-query';
 
 my $action = $ARGV[0]; # Which xbps program to call
 
-if (not $action){
+if (not $action){ 
 	usage(); exit 0;}
 
 
@@ -44,32 +44,26 @@ my $cmd = #which term to search/remove/install
 	if ($cmd){
 		return $cmd;
 	}
-	elsif(not $cmd and $action eq '-Ss'){
+	if($action eq '-Ss'){
 		return '"" ';
 	}
-	elsif(not $cmd and $action eq '-Sy', '--refresh'){
-	  return $cmd;
+	if($action eq '-Sy', '--refresh'){
+	  return 1;
 	}
-	elsif(not $cmd and $action eq '-S', '--sync'){
-		usage(); exit 0;}
 }
 }();				 
-
+if ($cmd eq undef){
+	usage(); exit 0;}
 given ($action) { 		#Try to keep all xbps commands grouped together
 											#Also can't figure out how to have multiple when conditions
 											#Such as when('-s' || '--sync')
-	when ('-S') 				{$action = "$xbI";} 
-	when ('--sync') 		{$action = "$xbI";}
-  
-	when ('-Su')				{$action = "$xbI -u";}
-  when ('-Syu')				{$action = "$xbI -Su";}
-  when ('--upgrade')  {$action = "$xbI -u";}
-
-	when ('-Sy')				{$action = "$xbI -S";}
-	when ('--refresh')	{$action = "$xbI -S";}
+	$action = $xbI when					['-S','--sync']; 
+  $action = "$xbI -u" when 		['-Su', '--upgrade'];
+  $action = "$xbI -Su" when 	['-Syu'];
 	
-	when ('-Ss')				{$action = "$xbQ -Rs";} 
-	when ('--search')		{$action = "$xbQ -Rs";} 
+	$action = "$xbI -S" when		['-Sy','--refresh'];
+	
+  $action = "$xbQ -Rs"	when	['-Ss', '--search'];
 
 	default						 	{ usage();exit 0; }
 }
