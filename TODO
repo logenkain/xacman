@@ -1,3 +1,7 @@
 Pair all pacman commands to their XBPS equals
 
-add remove support
+Remove Recursivly
+Remove orphans
+
+Force refresh -Syy
+list installed packages
