@@ -17,6 +17,7 @@ print STDERR ("	EXAMPLE: xacman -Sy tilda; xacman --refresh tilda\n\n");
 #Operations
 print STDERR ("OPERATIONS:\n");
 print STDERR (" -S, --sync		Install [PACKAGE NAME]\n");
+print STDERR (" -R, --remove  Remove  [PACKAGE NAME]\n");
 
 #Sync Options
 print STDERR ("Sync Options:\n");
@@ -45,11 +46,14 @@ my $cmd = #which term to search/remove/install
 	if ($cmd){
 		return $cmd;
 	}
-	if($action eq '-Ss'){
+	elsif($action eq '-Ss'){
 		return '"" ';
 	}
-	if($action eq '-Sy', '--refresh'){
+	elsif($action eq '-Sy'|'refresh'){
 	  return 1;
+	}
+	else{
+		return undef;
 	}
 }
 }();				 
