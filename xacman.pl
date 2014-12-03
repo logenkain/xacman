@@ -52,6 +52,9 @@ my $cmd = #which term to search/remove/install
 	elsif($action eq '-Sy'|'refresh'){
 	  return 1;
 	}
+  elsif($action eq '-Syu'){
+		return 1;
+	}
 	else{
 		return undef;
 	}
@@ -59,6 +62,9 @@ my $cmd = #which term to search/remove/install
 }();				 
 if ($cmd eq undef){ #If cmd is blank, with the exceptions above (the sub) then fail.
 	usage(); exit 0;}
+#clear the variable so xbps doesn't try to search for it
+if ($cmd == 1){
+	$cmd = undef;}
 
 given ($action) { 		#Try to keep all xbps commands grouped together $xbI/xbQ/etc
 											#Also can't figure out how to have multiple when conditions
