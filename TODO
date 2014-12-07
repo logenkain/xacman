@@ -5,3 +5,6 @@ Remove orphans
 
 Force refresh -Syy
 list installed packages
+
+add multiple packages at once
+
