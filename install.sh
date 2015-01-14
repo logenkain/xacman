@@ -10,7 +10,7 @@ binDir="/usr/bin"
 
 if [ -e "${binDir}/xacman" ] 
 then																		#Remove files/syms
-	echo "Reinstalling xacman  to ${xDir}"
+	echo "Reinstalling xacman to ${xDir}"
 	rm ${binDir}/xacman
 	rm -r ${xDir}
 else
