@@ -12,7 +12,8 @@ no warnings 'experimental::smartmatch';
 
 sub usage{
 print STDERR ("Usage: xacman [OPERATION/OPTION] [PACKAGE NAME]\n");
-print STDERR ("	EXAMPLE: xacman -Sy tilda; xacman --refresh tilda\n\n");
+print STDERR ("EXAMPLE: xacman -Sy tilda; xacman --refresh tilda\n");
+print STDERR ("Use quotes for multiple packages: xacman -S 'mc ranger'\n\n");   
 
 #Operations
 print STDERR ("OPERATIONS:\n");
