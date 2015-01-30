@@ -13,7 +13,6 @@ no warnings 'experimental::smartmatch';
 sub usage{
 print STDERR ("Usage: xacman [OPERATION/OPTION] [PACKAGE NAME]\n");
 print STDERR ("EXAMPLE: xacman -Sy tilda; xacman --refresh tilda\n");
-print STDERR ("Use quotes for multiple packages: xacman -S 'mc ranger'\n\n");   
 
 #Operations
 print STDERR ("OPERATIONS:\n");
@@ -43,8 +42,9 @@ my $cmd = #which term to search/remove/install
 					#Pass a quotes to -Rs to list all packages
 					#Pass usage guide in case of -S 
 &{ sub {
-	my $cmd = ($ARGV[1]);
-	if ($cmd){
+	my $cmd = @ARGV[1..$#ARGV];	
+	
+  if ($cmd){
 		return $cmd;
 	}
 	elsif($action eq '-Ss'){
@@ -54,6 +54,9 @@ my $cmd = #which term to search/remove/install
 	  return 1;
 	}
   elsif($action eq '-Syu'){
+		return 1;
+	}
+	elsif($action eq '-Su'){
 		return 1;
 	}
 	else{
