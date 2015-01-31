@@ -24,8 +24,6 @@ print STDERR ("Sync Options:\n");
 print STDERR ("  s, --search   	Search for packages\n");
 print STDERR ("  y, --refresh		Refresh package list\n");  
 print STDERR ("  u, --upgrade   Update [PACKAGE NAME]\n");
-
-
 }
 
 my $xbI = 'xbps-install';
@@ -48,11 +46,20 @@ my $cmd = #which term to search/remove/install
 	if ($ARGV[1]){
 		return "@args"; #make cmd become a string of the args, quotes add spaces between args 
 	}
-		if($action eq '-Ss'){
+	elsif($action eq '-Ss'){
 		return '"" ';
 	}
-	elsif($action eq '-Sy'|'--refresh'|'-Syu'|'-Su'){
+	elsif($action eq '-Sy'){
 	  return 1;
+	}
+	elsif($action eq '--refresh'){
+		return 1;
+	}
+	elsif($action eq '-Su'){
+		return 1;
+	}
+	elsif($action eq '-Syu'){
+		return 1;
 	}
 	else{
 		return undef;
@@ -90,5 +97,5 @@ given ($action) { 		#Try to keep all xbps commands grouped together $xbI/xbQ/etc
 sub xbps{
 	exec("@_");
 }
-
+print($action, $cmd);
 xbps($action, $cmd);
