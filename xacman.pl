@@ -46,7 +46,6 @@ my $cmd = #which term to search/remove/install
 &{ sub {
 
 	if ($ARGV[1]){
-		print $ARGV[1];
 		return "@args";
 	}
 		if($action eq '-Ss'){
