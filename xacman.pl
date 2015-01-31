@@ -40,18 +40,16 @@ if (not $action){
 
 my @args = "@ARGV[1..$#ARGV]";
 
-my @cmd = #which term to search/remove/install
+my $cmd = #which term to search/remove/install
 					#Pass a quotes to -Rs to list all packages
 					#Pass usage guide in case of -S 
 &{ sub {
-  	
 
-  if ($ARGV[1]){
+	if ($ARGV[1]){
 		print $ARGV[1];
-		return 1;
+		return "@args";
 	}
-
-		elsif($action eq '-Ss'){
+		if($action eq '-Ss'){
 		return '"" ';
 	}
 	elsif($action eq '-Sy'|'--refresh'|'-Syu'|'-Su'){
@@ -64,11 +62,11 @@ my @cmd = #which term to search/remove/install
 }
 }();
 
-if (@cmd eq undef){ #If cmd is blank, with the exceptions above (the sub) then fail.
+if ($cmd eq undef){ #If cmd is blank, with the exceptions above (the sub) then fail.
 	usage(); exit 0;}
 #clear the variable so xbps doesn't try to search for it
-if (@cmd == 1){
-	@cmd = undef;}
+if ($cmd == 1){
+	$cmd = undef;}
 
 given ($action) { 		#Try to keep all xbps commands grouped together $xbI/xbQ/etc
 											#Also can't figure out how to have multiple when conditions
@@ -94,4 +92,4 @@ sub xbps{
 	exec("@_");
 }
 
-xbps($action, @args);
+xbps($action, $cmd);
