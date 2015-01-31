@@ -46,7 +46,7 @@ my $cmd = #which term to search/remove/install
 &{ sub {
 
 	if ($ARGV[1]){
-		return "@args";
+		return "@args"; #make cmd become a string of the args, quotes add spaces between args 
 	}
 		if($action eq '-Ss'){
 		return '"" ';
