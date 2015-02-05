@@ -16,7 +16,7 @@ print STDERR ("EXAMPLE: xacman -Sy tilda; xacman --refresh tilda\n");
 
 #Operations
 print STDERR ("OPERATIONS:\n");
-print STDERR (" -S, --sync		Install [PACKAGE NAME]\n");
+print STDERR (" -S, --sync    Install [PACKAGE NAME]\n");
 print STDERR (" -R, --remove  Remove  [PACKAGE NAME]\n");
 
 #Sync Options
@@ -24,6 +24,11 @@ print STDERR ("Sync Options:\n");
 print STDERR ("  s, --search   	Search for packages\n");
 print STDERR ("  y, --refresh		Refresh package list\n");  
 print STDERR ("  u, --upgrade   Update [PACKAGE NAME]\n");
+}
+
+
+sub xbps{         ## How I execute code
+	exec("@_");
 }
 
 my $xbI = 'xbps-install';
@@ -36,30 +41,29 @@ if (not $action){
 	usage(); exit 0;}
 
 
-my @args = "@ARGV[1..$#ARGV]";
-
+my $args = "@ARGV[1..$#ARGV]";
 my $cmd = #which term to search/remove/install
 					#Pass a quotes to -Rs to list all packages
 					#Pass usage guide in case of -S 
 &{ sub {
 
 	if ($ARGV[1]){
-		return "@args"; #make cmd become a string of the args, quotes add spaces between args 
+		return "$args"; #make cmd become a string of the args, quotes add spaces between args 
 	}
 	elsif($action eq '-Ss'){
 		return '"" ';
 	}
 	elsif($action eq '-Sy'){
-	  return 1;
+	  return "pass";
 	}
 	elsif($action eq '--refresh'){
-		return 1;
+		return "pass";
 	}
 	elsif($action eq '-Su'){
-		return 1;
+		return "pass";
 	}
 	elsif($action eq '-Syu'){
-		return 1;
+		return "pass";
 	}
 	else{
 		return undef;
@@ -68,10 +72,10 @@ my $cmd = #which term to search/remove/install
 }
 }();
 
-if ($cmd eq undef){ #If cmd is blank, with the exceptions above (the sub) then fail.
+if (not $cmd){ #If cmd is blank, with the exceptions above (the sub) then fail.
 	usage(); exit 0;}
 #clear the variable so xbps doesn't try to search for it
-if ($cmd == 1){
+if ($cmd eq "pass"){
 	$cmd = undef;}
 
 given ($action) { 		#Try to keep all xbps commands grouped together $xbI/xbQ/etc
@@ -94,7 +98,10 @@ given ($action) { 		#Try to keep all xbps commands grouped together $xbI/xbQ/etc
 }
 
 
-sub xbps{
-	exec("@_");
+
+if ($cmd){
+  xbps($action, $cmd);
 }
-xbps($action, $cmd);
+else{
+  xbps($action);
+}
