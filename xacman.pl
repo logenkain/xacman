@@ -97,5 +97,4 @@ given ($action) { 		#Try to keep all xbps commands grouped together $xbI/xbQ/etc
 sub xbps{
 	exec("@_");
 }
-print($action, $cmd);
 xbps($action, $cmd);
